@@ -1,4 +1,27 @@
----
-layout: home
-author_profile: true
----
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Unity WebGL Player | TrySense</title>
+	<script src="TemplateData/UnityProgress.js"></script>
+    <script src="Build/UnityLoader.js"></script>
+    <script>
+      var gameInstance = UnityLoader.instantiate("gameContainer", "Build/ViuBox.json", {onProgress: UnityProgress});
+      function downloadBundle(name) { gameInstance.SendMessage("WebAPI", "DownloadBundle", name); }
+      function login(id) { gameInstance.SendMessage("WebAPI", "Login", id); }
+      function receiveMessage(e) {
+        if (e.data.message == 'login') {
+          login(e.data.id);
+        }
+        else {
+          downloadBundle(e.data);
+        }
+      }
+      window.addEventListener('message', receiveMessage);
+    </script>
+  </head>
+  <body>
+    <div id="gameContainer" style="width: 300px; height: 400px; margin: auto"></div>
+  </body>
+</html>
