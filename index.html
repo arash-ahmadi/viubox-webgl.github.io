@@ -3,25 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>TrySense </title>
-    <script src="TemplateData/UnityProgress.js"></script>
+    <title>Unity WebGL Player | ViuBox</title>
     <script src="Build/UnityLoader.js"></script>
     <script>
-      var gameInstance = UnityLoader.instantiate("gameContainer", "Build/ViuBox.json", {onProgress: UnityProgress});
-      function downloadBundle(name) { gameInstance.SendMessage("WebAPI", "DownloadBundle", name); }
-      function login(id) { gameInstance.SendMessage("WebAPI", "Login", id); }
-      function receiveMessage(e) {
-        if (e.data.message == 'login') {
-          login(e.data.id);
-        }
-        else {
-          downloadBundle(e.data);
-        }
-      }
-      window.addEventListener('message', receiveMessage);
+      UnityLoader.instantiate("unityContainer", "Build/ViuBox.json");
     </script>
   </head>
   <body>
-    <div id="gameContainer" style="width: 300px; height: 400px; margin: auto"></div>
+    <div id="unityContainer" style="width: 300px; height: 400px; margin: auto"></div>
   </body>
 </html>
